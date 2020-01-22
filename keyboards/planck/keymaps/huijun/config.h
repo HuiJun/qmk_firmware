@@ -1,12 +1,13 @@
 #pragma once
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(PLANCK_SOUND)
+    #include "removed_songs.h"
+    #define STARTUP_SONG SONG(_FF_PRELUDE)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND) \
+    #define DEFAULT_LAYER_SONGS { SONG(_ZELDA_PUZZLE), \
+                                  SONG(_ONE_UP_SOUND), \
+                                  SONG(_TO_BOLDLY_GO) \
                                 }
 #endif
 
@@ -44,3 +45,6 @@
 #define AUDIO_CLICKY_FREQ_FACTOR 1.18921f
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
 #define AUDIO_CLICKY_DELAY_DURATION 8
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
