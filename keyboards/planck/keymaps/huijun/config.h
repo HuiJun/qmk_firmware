@@ -4,10 +4,20 @@
     #include "removed_songs.h"
     #define STARTUP_SONG SONG(_FF_PRELUDE)
     // #define STARTUP_SONG SONG(NO_SOUND)
-
+    // #define GOODBYE_SONG SONG(NO_SOUND) // plays when you press the RESET key (quantum.c)
+    // #define AG_NORM_SONG SONG(NO_SOUND) // plays when you press AG_NORM (quantum.c)
+    // #define AG_SWAP_SONG SONG(NO_SOUND) // plays when you press AG_SWAP (quantum.c)
+    // #define CG_NORM_SONG SONG(NO_SOUND) // plays when you press CG_NORM (quantum.c)
+    // #define CG_SWAP_SONG SONG(NO_SOUND) // plays when you press CG_SWAP (quantum.c)
+    // #define MUSIC_ON_SONG SONG(NO_SOUND) // plays when music mode is activated (process_music.c)
+    // #define MUSIC_OFF_SONG SONG(NO_SOUND) // plays when music mode is deactivated (process_music.c)
+    // #define CHROMATIC_SONG SONG(NO_SOUND) // plays when the chromatic music mode is selected (process_music.c)
+    // #define GUITAR_SONG SONG(NO_SOUND) // plays when the guitar music mode is selected (process_music.c)
+    // #define VIOLIN_SONG SONG(NO_SOUND) // plays when the violin music mode is selected (process_music.c)
+    // #define MAJOR_SONG SONG(NO_SOUND) // plays when the major music mode is selected (process_music.c)
     #define DEFAULT_LAYER_SONGS { SONG(_ZELDA_PUZZLE), \
                                   SONG(_ONE_UP_SOUND), \
-                                  SONG(_TO_BOLDLY_GO) \
+                                  SONG(_ZELDA_TREASURE) \
                                 }
 #endif
 
@@ -44,7 +54,7 @@
 #define AUDIO_CLICKY_FREQ_MAX 1500.0f
 #define AUDIO_CLICKY_FREQ_FACTOR 1.18921f
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
-#define AUDIO_CLICKY_DELAY_DURATION 8
+#define AUDIO_CLICKY_DELAY_DURATION 6
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
