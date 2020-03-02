@@ -40,26 +40,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// RGB Modes
-// 1 = Static
-// 2-5 = Breathing
-// 6-8 = Rainbow
-// 9-14 = Swirl
-// 15-20 = Snake
-// 21-24 = Nightrider
-// 25 = Christmas
-// 26-30 = Static Gradient
-const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 1}; // Set the last one to 10ms for some speedy swirls
-
 uint8_t prev = _TYPE;
-uint32_t check;
-uint32_t desired = 21;
+#define RGBLIGHT_ANIMATIONS
+// How long (in milliseconds) to wait between animation steps for each of the "Solid color breathing" animations
+const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
+// How long (in milliseconds) to wait between animation steps for each of the "Cycling rainbow" animations
+const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
+// How long (in milliseconds) to wait between animation steps for each of the "Swirling rainbow" animations
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
+// How long (in milliseconds) to wait between animation steps for each of the "Snake" animations
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
+// How long (in milliseconds) to wait between animation steps for each of the "Knight" animations
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
+// These control which hues are selected for each of the "Static gradient" modes
+const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
+
+void default_mode(void) {
+    rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_sethsv_orange();
+}
 
 void matrix_init_user(void) {
-    rgblight_mode(desired);
 }
 
 void matrix_scan_user(void) {
+}
+
+void keyboard_post_init_user(void) {
+    default_mode();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -67,37 +75,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
-  uint8_t layer = biton32(state);
-  if (prev!=_RGBC) {
-	  switch (layer) {
-		case _TYPE:
-		  rgblight_mode(desired);
-		  break;
+    state = update_tri_layer_state(state, _CTRL, _NUMB, _RGBC);
+    switch (biton32(state)) {
+        case _TYPE:
+            default_mode();
+            break;
 
-		case _CTRL: // If we're in swirl mode, then speed up the swirls, otherwise breathe
-		  check = rgblight_get_mode();
-		  if (check > 8 && check < 15) {
-			rgblight_mode(14);
-		  } else {
-			rgblight_mode(5);
-		  }
-		  break;
+        case _CTRL:
+            rgblight_mode(RGBLIGHT_MODE_KNIGHT);
+            break;
 
-		case _NUMB: // Same as above but reverse direction, otherwise nightrider
-		  check = rgblight_get_mode();
-		  if (check > 8 && check < 15) {
-			rgblight_mode(13);
-		  } else {
-			rgblight_mode(23);
-		  }
-		  break;
+        case _NUMB:
+            rgblight_mode(RGBLIGHT_MODE_SNAKE);
+            break;
 
-		case _RGBC:
-		  break;
-	  }
-  } else {
-	  desired = rgblight_get_mode();
-  }
-  prev = layer;
-  return update_tri_layer_state(state, _CTRL, _NUMB, _RGBC);
+        case _RGBC:
+            rgblight_mode(RGBLIGHT_MODE_CHRISTMAS);
+            break;
+
+        default:
+            default_mode();
+            break;
+        }
+    return state;
 }
