@@ -7,9 +7,6 @@ enum layers {
   _RGBC
 };
 
-#define LOWER MO(_CTRL)
-#define RAISE MO(_NUMB)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_TYPE] = LAYOUT_ortho_4x12(
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
@@ -41,7 +38,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 uint8_t prev = _TYPE;
-#define RGBLIGHT_ANIMATIONS
 // How long (in milliseconds) to wait between animation steps for each of the "Solid color breathing" animations
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 // How long (in milliseconds) to wait between animation steps for each of the "Cycling rainbow" animations
@@ -56,7 +52,7 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 
 void default_mode(void) {
-    rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT + 1);
     rgblight_sethsv_orange();
 }
 
