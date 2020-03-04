@@ -23,5 +23,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
     rgblight_mode(RGBLIGHT_MODE_BREATHING);
-    rgblight_sethsv_blue();
+    rgblight_sethsv(HSV_BLUE);
 }
