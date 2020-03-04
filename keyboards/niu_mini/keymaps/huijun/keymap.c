@@ -53,7 +53,7 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 
 void default_mode(void) {
     rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT + 1);
-    rgblight_sethsv_orange();
+    rgblight_sethsv(HSV_ORANGE);
 }
 
 void matrix_init_user(void) {
